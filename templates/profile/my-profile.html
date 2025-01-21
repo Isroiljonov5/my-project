@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>My Profile</title>
+
+</head>
+<body>
+    <script> 
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+    <div class="container">
+        <div class="header">
+            <img src="{{request.user.profile.image.url}}" alt="Profile Picture" >
+            <h1>{{request.user.get_full_name}}</h1>
+            <p>{{request.user.email}}</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>About Me</h2>
+                <p>{{request.user.profile.bio}}</p>
+            </div>
+            <div class="section">
+                <h2>Contact Information</h2>
+                <p>{{request.user.get_full_name}}</p>
+                <p>{{request.user.date_joined}}da ro‘yxatdan o‘tgan</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button><a href="{% url 'users:edit-profile' username=user.username %}" style="color:white;">Edit Profile</a></button>
+
+            <button><a href="{% url "users:logout" %}" style="color:white;">Log Out</a></button>
+        </div>
+
+        <div class="footer">
+            Need help? <a href="{% url 'main:home' %}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

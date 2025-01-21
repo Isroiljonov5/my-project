@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script> 
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-box">
+            <div class="register-header">
+                <h1>Create an account</h1>
+                <p>Join us and start your journey</p>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="first-name">First Name *</label>
+                    <input type="text"  name="firstname" id="first-name" placeholder="First Name" minlength="3">
+                </div>
+                <div class="input-group">
+                    <label for="last-name">Last Name *</label>
+                    <input type="text" name="lastname" id="last-name" placeholder="Last Name" minlength="5">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email *</label>
+                    <input type="email" name="email" id="email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" name="password_confirm"  id="confirm-password" placeholder="Confirm Password" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">I agree to the <a href="{% url "main:home" %}">Back to Home</a></label>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            <p class="login-link">Already have an account? <a href="{% url "users:login" %}">Sign in</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Welcome back</h1>
+            <p>Please sign in to your account</p>
+            <form  action="" method="post">
+                {% csrf_token %}
+                <label for="email" >Email address</label>
+                <input type="email" name="username" id="email" placeholder="you@example.com" required>
+                
+                <label for="password">Password</label>
+                <input type="password" name='password' id="password" placeholder="********"  required>
+                
+                <div class="options">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="{% url 'main:home' %}">Back to Home</a>
+                </div>
+                
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+            <p class="signup">Don't have an account? <a href="{% url 'users:register' %}">Sign up</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySite</title>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <script> 
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1 class="logo">Biloldin WebSite</h1>
+        <div class="auth-buttons">
+            {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+            <button class="logout-btn"><a type="button" href="{% url 'users:profile' %}" class="btn btn-primary">Profile</a></button> 
+            <button class="login-btn"><a type="button" href="{% url 'users:login' %}" class="btn btn-primary">Log in</a></button>
+            <button class="logout-btn"><a type="button" href="{% url 'users:logout' %}" class="btn btn-primary">Logout</a></button> 
+            {% comment %} {% else %} {% endcomment %}
+            {% comment %} {% endif %} {% endcomment %}
+
+        </div>
+    </div>
+
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Welcome to My Site</h1>
+        <p>Share your thoughts, connect with friends, and enjoy the community!</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2>Community Feed</h2>
+            {% for post in page_objects %}
+            <div class="comment">
+                <div class="user-icon">{{ request.user.first_name|slice:":1" }}</div>
+                <div class="comment-content">
+                    <h3>{{post.title}}</h3>
+                    <p>{{post.content}}</p>
+                    <div class="like-section">
+                        <button class="like-btn"><a href="{% url 'main:add_votes' post.id %}" class="text-decoration-none text-success">👍 Like</a></button>
+                        <span>{{post.votes}} likes</span>
+                        -
+                        <span> created at {{post.get_published_days}}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+        
+        <div class="navigation-container">
+            <div class="paginator">
+                {% if page_objects.has_previous %}
+                    <a class="page-link" href="?page={{ page_objects.previous_page_number }}">« Previous</a>
+                {% endif %}
+                {% for page in page_objects.paginator.page_range %}
+                    <a class="page-link {% if page == page_objects.number %}active{% endif %}" href="?page={{ page }}">{{ page }}</a>
+                {% endfor %}
+                {% if page_objects.has_next %}
+                    <a class="page-link" href="?page={{ page_objects.next_page_number }}">Next »</a>
+                {% endif %}
+            </div>
+            <div class="filter-buttons">
+                <a class="filter-button" href="{% url 'main:filter' 'by_votes' %}">Most Votes</a>
+                <a class="filter-button" href="{% url 'main:filter' 'recent' %}">Recent</a>
+            </div>
+        </div>
+        
+
+
+        
+
+
+        <!-- Add Comment Section -->
+        <div class="add-comment-section">
+            <h2>Join the Conversation</h2>
+            <form actions="" method="post">
+                {% csrf_token %}
+                <input type="text" name="title"  placeholder="Post title" required>
+                <textarea placeholder="Write your comment here..." name="content" required></textarea>
+                <button type="submit">Send Comment</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

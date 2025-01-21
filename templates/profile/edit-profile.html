@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="edit-profile-container">
+        <!-- Header Section -->
+        <header class="edit-header">
+            <h1>Edit Profile</h1>
+        </header>
+
+        <!-- Profile Form Section -->
+        <section class="profile-form-section">
+            <form class="profile-form" actions="" method="post">
+                {% csrf_token %}
+                <!-- Profile Picture -->
+                <div class="header">
+                    <img src="{{request.user.profile.image.url}}" width="100" alt="" class="img-fluid img-rounded" id="imagePreview">
+                    <br>
+                    <input type="file" name="image" id="uploadImage" class="" accept="image/*" >
+                
+                </div>
+
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text"  name="username" id="username"  placeholder="{{request.user.username}}">
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="{{request.user.email}}">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="{{request.user.profile.phone}}">
+                </div>
+
+                <!-- Bio -->
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" placeholder="{{request.user.profile.bio}}"></textarea>
+                </div>
+
+                {% comment %} <!-- old Password -->
+                <div class="form-group">
+                    <label for="password"> Old Password</label>
+                    <input type="password" id="password" name="old_password" placeholder="Enter your new password">
+                </div> {% endcomment %}
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="new_password1" placeholder="Enter your new password">
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="new_password2" placeholder="Confirm your password">
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-actions">
+                            <button type="submit" class="btn my-btn-success"> <i class="fa-solid fa-user-pen"></i> Saqlash</button>
+            
+                    <button type="reset" class="cancel-button btn my-btn-success">Cancel</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>

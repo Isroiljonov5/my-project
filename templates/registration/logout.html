@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Out Page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-box">
+            <h1>Ready to leave?</h1>
+            <p>Thank you for using our service</p>
+
+            <div class="alert">
+                <strong>Before you go</strong>
+                <p>Make sure you've saved all your work. Any unsaved changes will be lost after logging out.</p>
+            </div>
+
+            <button class="btn logout-btn"><a href="{% url "users:profile" %}" style="color:white;">Censer</a></button>
+            <a href="{% url "users:login" %}" class="return-link">Return to login</a>
+
+            <footer>
+                <p>Need help?<a href="{% url 'main:home' %}">Back to Home</a></p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
